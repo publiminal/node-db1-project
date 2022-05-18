@@ -16,18 +16,19 @@ exports.checkAccountPayload = (req, res, next) => {
 
   const account = req.body
   // const isValid = account?.name && account?.budget
-  const isValid = 'name' in account && 'budget' in account
+  const isValid = 'name' in account && 'budget' in account 
+  // console.log('account.budget', account.budget)
   if(!isValid){ res.status(400).json({ message: "name and budget are required" }); return; }
 
-  
-  const name = account.name.trim()
-  let budget = account.budget
-  budget =  Number.isNaN(Number(budget)) ? budget : Number(budget)
-  console.log('\nbudget', budget)
-  console.log('typeof budget', typeof budget)
+  // && account.name && account.budget
+  const name = account.name ? account.name.trim() : ''
+  let budget = account.budget ? account.budget : ''
+  budget =  Number.isNaN(budget) ? budget : Number(budget)
+  // console.log('\nbudget', budget)
+  // console.log('typeof budget', typeof budget)
   const hasinvalidName = name.length < 3 || name.length > 100
-  const hasInvalidBudget = typeof budget === 'string'  // Number.isNaN(budget) //  !Number.isInteger(budget) // typeof budget === 'string' 
-  console.log('hasInvalidBudget', hasInvalidBudget)
+  const hasInvalidBudget = Number.isNaN(budget) //typeof budget === 'string'  // Number.isNaN(budget) //  !Number.isInteger(budget) // typeof budget === 'string' 
+  // console.log('hasInvalidBudget', hasInvalidBudget)
   const isBudgetOutofRange = budget < 0 || budget > 1000000 
   const isOk = !hasinvalidName && !hasInvalidBudget && !isBudgetOutofRange 
   
