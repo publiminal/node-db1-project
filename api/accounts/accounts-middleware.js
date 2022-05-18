@@ -24,7 +24,7 @@ exports.checkAccountPayload = (req, res, next) => {
   const name = account.name ? account.name.trim() : ''
   let budget = account.budget ? account.budget : ''
   budget =  Number.isNaN(budget) ? budget : Number(budget)
-  // console.log('\nbudget', budget)
+  console.log('\nbudget', budget)
   // console.log('typeof budget', typeof budget)
   const hasinvalidName = name.length < 3 || name.length > 100
   const hasInvalidBudget = Number.isNaN(budget) //typeof budget === 'string'  // Number.isNaN(budget) //  !Number.isInteger(budget) // typeof budget === 'string' 
